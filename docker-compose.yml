@@ -3,6 +3,7 @@ services:
   traefik:
     container_name: traefik
     image: traefik:v3.5.2
+    restart: unless-stopped
     environment:
       - CLOUDFLARE_DNS_API_TOKEN=${CLOUDFLARE_DNS_API_TOKEN}
       - CLOUDFLARE_EMAIL=${CLOUDFLARE_EMAIL}
