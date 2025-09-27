@@ -10,13 +10,27 @@ services:
     ports:
       - 80:80
       - 443:443
-      - 8080:8080
+      #- 8081:8080
+    networks:
+      - default
+      - nextcloud-aio
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./config/:/etc/traefik/:ro
       - ./certs:/var/traefik/certs:rw
+    labels:
+      - traefik.enable=true
+      - "traefik.http.routers.dashboard.rule=Host(`traefik.tyler-clark.com`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))"
+      - "traefik.http.routers.dashboard.service=api@internal"
+      - "traefik.http.routers.dashboard.middlewares=auth"
+      - "traefik.http.middlewares.auth.basicauth.users=${TRAEFIK_DASHBOARD_CREDS}"
+      - traefik.http.routers.dashboard.tls=true
+      - traefik.http.routers.dashboard.tls.certresolver=cloudflare
 
 networks:
   default:
     name: frontend
     external: true 
+  nextcloud-aio:
+    external: true
+    name: nextcloud-aio
