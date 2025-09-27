@@ -3,11 +3,10 @@ global:
   sendAnonymousUsage: false
 
 log:
-  level: INFO
+  level: DEBUG
 
 api:
   dashboard: true
-  insecure: true
 
 
 
