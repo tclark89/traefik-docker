@@ -16,6 +16,12 @@ entryPoints:
     address: :80
     # --> (Optional) Redirect all HTTP to HTTPS
     http:
+      tls:
+        certresolver:
+          cloudflare
+        domains:
+          - main: "tyler-clark.com"
+          - sans: "*.tyler-clark.com"
       redirections:
         entryPoint:
           to: websecure
@@ -26,11 +32,12 @@ entryPoints:
 certificatesResolvers:
   cloudflare:
     acme:
-#      email: tylerclark2@gmail.com  # <-- Change this to your email
+      email: tylerclark2@gmail.com  # <-- Change this to your email
       storage: /var/traefik/certs/cloudflare-acme.json
       caServer: "https://acme-v02.api.letsencrypt.org/directory"
       dnsChallenge:
         provider: cloudflare  # <-- (Optional) Change this to your DNS provider
+        #disablePropagationCheck: true
         resolvers:
           - "1.1.1.1:53"
           - "8.8.8.8:53"

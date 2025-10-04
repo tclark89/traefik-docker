@@ -5,8 +5,8 @@ services:
     image: traefik:v3.5.2
     restart: unless-stopped
     environment:
-      - CLOUDFLARE_DNS_API_TOKEN=${CLOUDFLARE_DNS_API_TOKEN}
-      - CLOUDFLARE_EMAIL=${CLOUDFLARE_EMAIL}
+      - CF_DNS_API_TOKEN=${CLOUDFLARE_DNS_API_TOKEN}
+      - CF_API_EMAIL=${CLOUDFLARE_EMAIL}
     ports:
       - 80:80
       - 443:443
